@@ -2,6 +2,8 @@ package com.atguigu.gmall.pms.controller;
 
 import java.util.List;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.sun.org.apache.regexp.internal.RE;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +37,18 @@ public class SkuController {
     private SkuService skuService;
 
     /**
+     * 根据spuid查询sku列表
+     * @param spuId
+     * @return
+     */
+    @GetMapping("spu/{spuId}")
+    @ApiOperation("根据spuid查询sku列表")
+    public ResponseVo<List<SkuEntity>> list(@PathVariable("spuId")Long spuId){
+        List<SkuEntity> skuEntities = skuService.list(new QueryWrapper<SkuEntity>().eq("sku_id", spuId));
+        return ResponseVo.ok(skuEntities);
+    }
+
+    /**
      * 列表
      */
     @GetMapping
@@ -60,7 +74,7 @@ public class SkuController {
     /**
      * 保存
      */
-    @PostMapping
+    @PostMapping("save")
     @ApiOperation("保存")
     public ResponseVo<Object> save(@RequestBody SkuEntity sku){
 		skuService.save(sku);

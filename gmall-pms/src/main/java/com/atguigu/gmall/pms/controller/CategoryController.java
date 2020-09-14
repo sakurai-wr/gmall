@@ -35,6 +35,11 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
+    /**
+     * 根据分类id查看商品
+     * @param Pid
+     * @return
+     */
     @GetMapping("parent/{parentId}")
     public ResponseVo<List<CategoryEntity>> queryCategoriesByPid(@PathVariable("parentId")Long Pid){
         QueryWrapper<CategoryEntity> wrapper = new QueryWrapper<>();
